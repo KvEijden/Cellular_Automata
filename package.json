@@ -1,0 +1,28 @@
+{
+  "name": "ca",
+  "version": "1.0.0",
+  "description": "cellular automata in p5.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KvEijden/Cellular_Automata.git"
+  },
+  "keywords": [
+    "cellular",
+    "automata",
+    "p5.js",
+    "nature",
+    "of",
+    "code"
+  ],
+  "author": "Kees van Eijden",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KvEijden/Cellular_Automata/issues"
+  },
+  "homepage": "https://github.com/KvEijden/Cellular_Automata#readme"
+}
