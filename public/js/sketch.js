@@ -1,63 +1,43 @@
 
-const ncells = 101;
-const canvas_w = 909;
-const canvas_h = 909;
-const cell_size = canvas_w / ncells;
-const ngens = canvas_h / cell_size;
-const ruleset = [0, 1, 0, 1, 1, 0, 1, 0];  // rule 90
-
-var gen;
 
 
+const canvas_w = 1200;
+const canvas_h = 1000;
+const cell_size = 40;
 
-var cells = new Array(ncells);
+var nrow;
+var ncol;
+
+var genCount = 0;
+
+var grid; 
+
 
 function setup() {
+  frameRate(1);
   createCanvas(canvas_w, canvas_h);
+  
+  document.querySelector('#defaultCanvas0').addEventListener('wheel', preventScroll, {passive: false});
+
+
   background(0, 240, 220);
   
-
-  // init 0th generation
-  for (let c = 0; c < cells.length; c++) {
-    cells[c] = 0;
-  }
-  cells[50] = 1;
-  gen = 0;
+  var nrow = canvas_h / cell_size;
+  var ncol = canvas_w / cell_size;
+  game = new GameOfLife(nrow, ncol, cell_size);
+  game.generationZero(0.4678);
 }
 
 function draw() {
-  // background(0, 240, 220);
-  // make new generation 
-  
-  
-  if (gen < ngens) {
-    stroke(64);
-    strokeWeight(1);
-    push();
-    translate(0, gen * cell_size);
-    for (let c = 0; c < cells.length; c++) {
-      if (cells[c] == 1) {
-        fill(0);
-      } else {
-        fill(255);
-      }
-      rect(0, 0, cell_size, cell_size);
-      translate(cell_size, 0);
-    }
-    pop();
-  }
-  var newcells = new Array(ncells);
-  
-  for (let c = 1; c < cells.length-1; c++) {
-    newcells[c] = applyRule(cells[c-1], cells[c], cells[c+1]);
-  }
-  newcells[0] = cells[0];
-  newcells[cells.length-1] = cells[cells.length-1];
-  cells = newcells.slice();
-  gen += 1;
+  background(0, 240, 220);
+  game.nextGeneration();
+  game.draw();
 }
 
-function applyRule(l, m, r) {
-  let i = (l*1) + (m*2) + (r*4);
-  return ruleset[i];
+// document.querySelector('#defaultCanvas0').addEventListener('wheel', preventScroll, {passive: false});
+function preventScroll(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    return false;
 }
